@@ -2,11 +2,6 @@
 #include <gtest/gtest.h>
 
 
-//		   (1408, 3)
-//			/	  \   
-//		(42, 1)   null
-//		/     \
-//   null   (13, 2)
 TEST(CommonFunctionality, CheckForTheLowestAfterPush) {
 	pq::priority_queue<int> pq_;
 	pq_.push(1408, 3);
@@ -19,12 +14,6 @@ TEST(CommonFunctionality, CheckForTheLowestAfterPush) {
 	EXPECT_EQ(pq_.peek().value, 42);
 }
 
-
-//		   (1408, 3)                       (1408, 3)                       (1408, 3)
-//			/	  \          pop()          /     \      push(2024, 1)      /     \
-//		(42, 1)   null     ------->     (13, 2)   null     ------->     (13, 2)   null
-//		/     \                                                           / 
-//   null   (13, 2)                                                 (2024, 1)
 TEST(CommonFunctionality, PushAfterPop) {
 	pq::priority_queue<int> pq_;
 	pq_.push(1408, 3);
@@ -35,13 +24,7 @@ TEST(CommonFunctionality, PushAfterPop) {
 	pq_.push(2024, 1);
 	EXPECT_EQ(pq_.peek().value, 2024);
 }
-
-
-//	       (1408, 3)                       (1408, 3)                       (1408, 3)
-//          /	  \		  push(13, 1)       /     \          pop()	        /     \
-//		(42, 1)   null     ------->     (13, 1)   null     ------->     (13, 1)   null
-//                                        /            
-//									  (42, 1)                                      
+               
 TEST(CommonFunctionality, DifferentElementsWithSamePriority) {
 	pq::priority_queue<int> pq_;
 	pq_.push(1408, 3);
@@ -52,11 +35,6 @@ TEST(CommonFunctionality, DifferentElementsWithSamePriority) {
 }
 
 
-//			   (Triss, 3)                                      (Triss, 3)
-//			   /	    \                 pop()                /        \
-//	    (Ciri, 1)      (Geralt, 4)      ------->     (Yennefer, 2)    (Geralt, 4)
-//	    /       \
-//	 null      (Yennefer, 2)
 TEST(Pop, TheLowestHasRightChild) {
 	pq::priority_queue<std::string> pq_;
 	pq_.push("Triss", 3);
@@ -69,12 +47,6 @@ TEST(Pop, TheLowestHasRightChild) {
 	EXPECT_EQ(pq_.getCount(), 3);
 }
 
-
-//	   		   (Triss, 3)                                      (Triss, 3)
-// 	  		   /	    \                 pop()                /        \
-//	    (Yennefer, 2)   (Geralt, 4)		------->     (Yennefer, 2)    (Geralt, 4)
-//	       /       
-//   (Ciri, 1)      
 TEST(Pop, TheLowestDoesntHaveRightChild) {
 	pq::priority_queue<std::string> pq_;
 	pq_.push("Triss", 3);
@@ -87,12 +59,6 @@ TEST(Pop, TheLowestDoesntHaveRightChild) {
 	EXPECT_EQ(pq_.getCount(), 3);
 }
 
-
-//	   		  (Yennefer, 2)                          (Triss, 3)
-// 	  		    	    \                 pop()            \
-//		            (Triss, 3)   		------->        (Geralt, 4)
-//                        \
-//                     (Geralt, 4)
 TEST(Pop, PopTheHead) {
 	pq::priority_queue<std::string> pq_;
 	pq_.push("Yennefer", 2);
